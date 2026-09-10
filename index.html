@@ -381,7 +381,7 @@
           <h3>Alpha</h3>
           <p>The earliest playable build. Barebones survival, no polish — pure nostalgia.</p>
         </div>
-        <a class="vcard-launch" href="./alpha.html">Launch Alpha</a>
+        <button class="vcard-launch" type="button" onclick="launchGame('./alpha.html')">Launch Alpha</button>
       </article>
 
       <article class="vcard" data-accent="purple">
@@ -390,7 +390,7 @@
           <h3>Beta 1.3</h3>
           <p>Mid-beta build, right before the Adventure Update work started landing.</p>
         </div>
-        <a class="vcard-launch" href="./1.3.html">Launch Beta 1.3</a>
+        <button class="vcard-launch" type="button" onclick="launchGame('./1.3.html')">Launch Beta 1.3</button>
       </article>
 
       <article class="vcard" data-accent="purple">
@@ -399,7 +399,7 @@
           <h3>Beta 1.7.3</h3>
           <p>The classic beta era — the last build before the Adventure Update.</p>
         </div>
-        <a class="vcard-launch" href="./1.7.3.html">Launch Beta 1.7.3</a>
+        <button class="vcard-launch" type="button" onclick="launchGame('./1.7.3.html')">Launch Beta 1.7.3</button>
       </article>
 
       <article class="vcard" data-accent="cyan">
@@ -408,7 +408,7 @@
           <h3>Eaglercraft 1.8</h3>
           <p>Classic survival-era build. Fastest load, widest device support — the safe default.</p>
         </div>
-        <a class="vcard-launch" href="./1.8.html">Launch 1.8</a>
+        <button class="vcard-launch" type="button" onclick="launchGame('./1.8.html')">Launch 1.8</button>
       </article>
 
       <article class="vcard" data-accent="amber">
@@ -539,29 +539,27 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Blob URL dynamic launcher
+  window.launchGame = function(filePath){
+    fetch(filePath)
+      .then(response => {
+        if (!response.ok) throw new Error("File not found");
+        return response.text();
+      })
+      .then(htmlContent => {
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        window.location.href = blobUrl;
+      })
+      .catch(err => {
+        alert("Game launch failed! Check if file exists: " + filePath);
+      });
+  };
+
   window.launch1122 = function(){
     alert("Sorry! We don't have 1.12.2 version hosted locally right now, so we redirecting you to our partner site!");
     window.location.href = "https://eaglercraft.com/play?version=1.12.2&texture=music-sounds-1.8.8&userscript=flameddogo99-eaglermobile.js";
   };
 
   window.launchScraftClient = function(){
-    alert("Coming soon! Our custom SCraft client is currently under development. For now, you can play any other available version!");
-  };
-
-  window.filterCategory = function(category, btnElement){
-    const chips = document.querySelectorAll('.chip');
-    chips.forEach(c => c.classList.remove('active'));
-    btnElement.classList.add('active');
-
-    const cards = document.querySelectorAll('.item-card');
-    cards.forEach(card => {
-      if(category === 'all' || card.dataset.category === category){
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  };
-
-  window.filterStore = function(){
-    const input = document.getElementById('store-search').value.toLowerCase(
+    alert("Coming soon! Our cust
