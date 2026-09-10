@@ -4,20 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCraft Portal — Play Eaglercraft & SCraft in Your Browser</title>
-<meta name="description" content="SCraft Portal is a free browser-based Minecraft launcher. Play Eaglercraft Alpha, Beta 1.3, Beta 1.7.3, 1.8, and the custom SCraft client instantly, no downloads required.">
-<meta name="keywords" content="scraft, eaglercraft, minecraft in browser, eaglercraft 1.8, minecraft web client, play minecraft online, browser minecraft launcher">
+<meta name="description" content="SCraft Portal is a free browser-based Minecraft launcher. Play Eaglercraft Alpha, Beta 1.3, Beta 1.7.3, 1.8, and the custom SCraft client instantly.">
+<meta name="keywords" content="scraft, eaglercraft, minecraft in browser, eaglercraft 1.8, minecraft web client">
 <meta name="robots" content="index, follow">
 <meta name="author" content="SCraft Dev Team">
-<link rel="canonical" href="https://scraft-portal.example/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SCraft Portal — Play Eaglercraft & SCraft in Your Browser">
-<meta property="og:description" content="Launch Eaglercraft Alpha through 1.8, or our custom SCraft client, right in your browser. No installs, no launchers.">
-<meta property="og:url" content="https://scraft-portal.example/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SCraft Portal — Play Eaglercraft & SCraft in Your Browser">
-<meta name="twitter:description" content="Launch Eaglercraft Alpha through 1.8, or our custom SCraft client, right in your browser.">
 <link rel="icon" type="image/x-icon" href="./favicon.ico">
-<link rel="icon" type="image/png" href="./favicon.png">
 <style>
   :root{
     --void:#080b10;
@@ -49,23 +40,12 @@
   }
 
   ::selection{ background: rgba(63,227,216,0.3); }
-
   a{color:inherit; text-decoration:none;}
   button{font-family:inherit;}
 
-  a:focus-visible, button:focus-visible, input:focus-visible{
-    outline:2px solid var(--cyan);
-    outline-offset:2px;
-    border-radius:0;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
-  }
-
   .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
 
-  /* ---------- HEADER ---------- */
+  /* HEADER */
   header{
     position:sticky; top:0; z-index:50;
     backdrop-filter: blur(10px);
@@ -80,29 +60,21 @@
   .brand-mark{
     width:30px; height:30px; position:relative; flex:none;
     background:var(--cyan);
-    box-shadow:
-      inset 6px 6px 0 0 var(--purple),
-      inset -6px -6px 0 0 rgba(0,0,0,0.55);
+    box-shadow: inset 6px 6px 0 0 var(--purple), inset -6px -6px 0 0 rgba(0,0,0,0.55);
     border:2px solid #04110d;
   }
-  .brand-name{
-    font-weight:700; font-size:1.15rem; letter-spacing:0.01em; color:#fff;
-    font-family:var(--mono);
-  }
+  .brand-name{ font-weight:700; font-size:1.15rem; color:#fff; font-family:var(--mono); }
   .brand-name span{ color:var(--cyan); }
 
   .status-pill{
     display:flex; align-items:center; gap:8px;
     padding:7px 14px;
     border:2px solid rgba(61,255,160,0.35);
-    border-radius:0;
     background:rgba(61,255,160,0.06);
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--green);
+    font-family:var(--mono); font-size:0.78rem; color:var(--green);
   }
   .status-dot{
-    width:8px; height:8px; border-radius:0; background:var(--green);
+    width:8px; height:8px; background:var(--green);
     box-shadow:0 0 8px var(--green);
     animation:pulse 2s ease-in-out infinite;
   }
@@ -111,242 +83,115 @@
     50%{ opacity:0.55; transform:scale(0.8); }
   }
 
-  /* ---------- HERO ---------- */
+  /* HERO */
   .hero{ padding:64px 0 20px; }
-  .hero-eyebrow{
-    font-family:var(--mono); font-size:0.82rem; color:var(--purple);
-    margin-bottom:10px;
-  }
-  .hero h1{
-    font-size:clamp(2rem, 4.4vw, 3.1rem);
-    line-height:1.08;
-    margin:0 0 14px;
-    color:#fff;
-    max-width:16ch;
-  }
-  .hero p{
-    color:var(--muted); max-width:56ch; font-size:1.02rem; margin:0 0 8px;
-  }
+  .hero-eyebrow{ font-family:var(--mono); font-size:0.82rem; color:var(--purple); margin-bottom:10px; }
+  .hero h1{ font-size:clamp(2rem, 4.4vw, 3.1rem); margin:0 0 14px; color:#fff; }
+  .hero p{ color:var(--muted); max-width:56ch; font-size:1.02rem; margin:0 0 8px; }
 
-  /* ---------- SECTION HEADINGS ---------- */
+  /* CARDS */
   .section{ padding:56px 0; }
-  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
-  .section-head h2{ font-size:1.5rem; margin:0 0 6px; color:#fff; }
-  .section-head p{ margin:0; color:var(--muted); font-size:0.95rem; max-width:52ch; }
-
-  /* ---------- VERSION CARDS ---------- */
   .versions{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
-    gap:18px;
-    margin-top:36px;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:18px; margin-top:36px;
   }
   .vcard{
-    position:relative;
-    display:flex; flex-direction:column; justify-content:space-between;
-    padding:22px;
-    min-height:200px;
+    position:relative; display:flex; flex-direction:column; justify-content:space-between;
+    padding:22px; min-height:200px;
     background:linear-gradient(180deg, var(--panel), var(--panel-2));
     border:2px solid var(--border);
-    border-radius:0;
-    box-shadow:
-      inset 3px 3px 0 0 rgba(255,255,255,0.04),
-      inset -3px -3px 0 0 rgba(0,0,0,0.35);
-    overflow:hidden;
-    transition:transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    transition:transform 0.18s ease, border-color 0.18s ease;
   }
-  .vcard::before{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(120deg, var(--accent, var(--cyan)), transparent 55%);
-    opacity:0.06;
-    pointer-events:none;
-  }
-  .vcard:hover{
-    transform:translateY(-4px);
-    border-color:var(--accent, var(--cyan));
-    box-shadow:
-      inset 3px 3px 0 0 rgba(255,255,255,0.06),
-      inset -3px -3px 0 0 rgba(0,0,0,0.4),
-      0 8px 0 0 rgba(0,0,0,0.35);
-  }
-  .vcard[data-accent="cyan"]{ --accent:var(--cyan); }
-  .vcard[data-accent="purple"]{ --accent:var(--purple); }
-  .vcard[data-accent="green"]{ --accent:var(--green); }
-  .vcard[data-accent="amber"]{ --accent:var(--amber); }
-
-  .vcard-tag{
-    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.02em;
-    color:var(--accent, var(--cyan)); margin-bottom:12px;
-  }
+  .vcard:hover{ transform:translateY(-4px); border-color:var(--cyan); }
+  .vcard-tag{ font-family:var(--mono); font-size:0.72rem; color:var(--cyan); margin-bottom:12px; }
   .vcard h3{ margin:0 0 8px; font-size:1.3rem; color:#fff; font-family:var(--mono); }
   .vcard p{ margin:0; color:var(--muted); font-size:0.9rem; }
+  
   .vcard-launch{
-    margin-top:18px;
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:11px 16px;
-    border-radius:0;
-    border:2px solid var(--accent, var(--cyan));
-    box-shadow:
-      inset 2px 2px 0 0 rgba(255,255,255,0.12),
-      inset -2px -2px 0 0 rgba(0,0,0,0.4);
-    color:var(--accent, var(--cyan));
-    font-weight:700; font-size:0.9rem; font-family:var(--mono);
-    background:rgba(0,0,0,0.2);
-    cursor:pointer;
-    transition:background 0.1s ease, color 0.1s ease, transform 0.1s ease;
+    margin-top:18px; display:inline-flex; align-items:center; justify-content:center;
+    padding:11px 16px; border:2px solid var(--cyan);
+    color:var(--cyan); font-weight:700; font-size:0.9rem; font-family:var(--mono);
+    background:rgba(0,0,0,0.2); cursor:pointer;
+    transition:background 0.1s ease, color 0.1s ease;
   }
-  .vcard-launch:hover{
-    background:var(--accent, var(--cyan));
-    color:#04110d;
-  }
-  .vcard-launch:active{
-    transform:translateY(2px);
-    box-shadow:none;
-  }
+  .vcard-launch:hover{ background:var(--cyan); color:#04110d; }
 
-  /* ---------- STORE ---------- */
-  .risk-badge{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:8px 14px;
-    border:2px solid rgba(255,182,72,0.4);
-    background:rgba(255,182,72,0.08);
-    color:var(--amber);
-    border-radius:0;
-    font-size:0.84rem;
-    font-weight:600;
-    margin-bottom:22px;
-  }
-
-  .store-controls{
-    display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px;
-  }
-  .search-box{
-    flex:1 1 260px;
-    position:relative;
-  }
+  /* STORE SECTION */
+  .store-controls{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px; }
+  .search-box{ flex:1 1 260px; }
   .search-box input{
-    width:100%;
-    padding:12px 14px 12px 40px;
-    background:var(--panel);
-    border:2px solid var(--border);
-    border-radius:0;
-    color:var(--text);
-    font-size:0.95rem;
-    font-family:var(--mono);
+    width:100%; padding:12px 14px; background:var(--panel);
+    border:2px solid var(--border); color:var(--text); font-family:var(--mono);
   }
-  .search-box input::placeholder{ color:var(--muted); }
-  .search-box input:focus{ border-color:var(--cyan); }
-  .search-box svg{
-    position:absolute; left:13px; top:50%; transform:translateY(-50%);
-    width:16px; height:16px; stroke:var(--muted);
-  }
-
   .chip-row{ display:flex; gap:8px; flex-wrap:wrap; }
   .chip{
-    padding:10px 15px;
-    border-radius:0;
-    border:2px solid var(--border);
-    background:var(--panel);
-    color:var(--muted);
-    font-size:0.86rem;
-    font-family:var(--mono);
-    cursor:pointer;
-    transition:border-color 0.15s ease, color 0.15s ease;
-    white-space:nowrap;
+    padding:10px 15px; border:2px solid var(--border); background:var(--panel);
+    color:var(--muted); font-size:0.86rem; font-family:var(--mono); cursor:pointer;
   }
-  .chip:hover{ color:var(--text); }
-  .chip.active{
-    color:var(--cyan); border-color:var(--cyan); background:rgba(63,227,216,0.08);
-  }
+  .chip.active{ color:var(--cyan); border-color:var(--cyan); background:rgba(63,227,216,0.08); }
 
-  .store-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:16px;
-  }
-  .item-card{
-    background:var(--panel);
-    border:2px solid var(--border);
-    border-radius:0;
-    box-shadow:
-      inset 2px 2px 0 0 rgba(255,255,255,0.03),
-      inset -2px -2px 0 0 rgba(0,0,0,0.3);
-    padding:18px;
-    display:flex; flex-direction:column; gap:10px;
-    transition:transform 0.15s ease, border-color 0.15s ease;
-  }
-  .item-card:hover{ transform:translateY(-3px); border-color:rgba(160,107,255,0.4); }
-  .item-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
-  .item-name{ font-weight:600; color:#fff; font-size:1rem; }
-  .item-type{
-    font-family:var(--mono); font-size:0.68rem;
-    padding:3px 8px; border-radius:0;
-    color:var(--purple); border:1px solid rgba(160,107,255,0.35);
-    background:rgba(160,107,255,0.08);
-    white-space:nowrap;
-  }
+  .store-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:16px; }
+  .item-card{ background:var(--panel); border:2px solid var(--border); padding:18px; display:flex; flex-direction:column; gap:10px; }
+  .item-name{ font-weight:600; color:#fff; }
   .item-desc{ color:var(--muted); font-size:0.85rem; flex:1; }
-  .item-meta{
-    display:flex; align-items:center; justify-content:space-between;
-    font-family:var(--mono); font-size:0.75rem; color:var(--muted);
-  }
-  .item-actions{ display:flex; gap:8px; margin-top:4px; }
   .btn-sm{
-    flex:1;
-    padding:9px 10px;
-    border-radius:0;
-    border:2px solid var(--border);
-    background:rgba(0,0,0,0.2);
-    color:var(--text);
-    font-size:0.82rem;
-    font-weight:700;
-    font-family:var(--mono);
-    cursor:pointer;
-    text-align:center;
-    transition:border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    padding:9px 10px; border:2px solid var(--border); background:rgba(0,0,0,0.2);
+    color:var(--text); font-size:0.82rem; font-family:var(--mono); cursor:pointer; text-align:center;
   }
-  .btn-sm.primary{
-    border-color:var(--green); color:var(--green);
-    box-shadow:
-      inset 2px 2px 0 0 rgba(255,255,255,0.1),
-      inset -2px -2px 0 0 rgba(0,0,0,0.4);
-  }
-  .btn-sm.primary:hover{ background:var(--green); color:#04110d; }
-  .btn-sm:hover{ border-color:var(--cyan); color:var(--cyan); }
-  .btn-sm:active{ transform:translateY(2px); }
+  .btn-sm.primary{ border-color:var(--green); color:var(--green); }
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    border-top:1px solid var(--border);
-    padding:32px 0 40px;
-    margin-top:40px;
-  }
-  .footer-row{
-    display:flex; align-items:center; justify-content:space-between;
-    flex-wrap:wrap; gap:16px;
-  }
-  .footer-links{ display:flex; gap:20px; }
-  .footer-links a{
-    color:var(--muted); font-size:0.88rem;
-    display:inline-flex; align-items:center; gap:6px;
-    transition:color 0.15s ease;
-  }
-  .footer-links a:hover{ color:var(--cyan); }
-  .footer-copy{ color:var(--muted); font-size:0.82rem; font-family:var(--mono); }
+  /* FOOTER */
+  footer{ border-top:1px solid var(--border); padding:32px 0; margin-top:40px; }
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width:860px){
-    .versions{ grid-template-columns:1fr; }
-    .hero{ padding:44px 0 10px; }
+  /* RGB LOADING OVERLAY & GAME MODAL */
+  #game-overlay{
+    display:none; position:fixed; inset:0; z-index:99999; background:#080b10;
   }
-  @media (max-width:600px){
-    .headbar{ padding:14px 18px; }
-    .brand-name{ font-size:1rem; }
-    .status-pill span.label{ display:none; }
-    .hero h1{ max-width:none; }
-    .footer-row{ flex-direction:column; align-items:flex-start; }
+
+  /* FULL RGB ANIMATION BANNER */
+  .rgb-loader{
+    position:absolute; inset:0; z-index:100001;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:#080b10; color:#fff; font-family:var(--mono);
+    transition:opacity 0.5s ease;
   }
+
+  .rgb-spinner{
+    width:60px; height:60px; border-radius:50%;
+    border:6px solid transparent;
+    border-top-color: #ff0055;
+    border-right-color: #00ffaa;
+    border-bottom-color: #00aaff;
+    border-left-color: #ffaa00;
+    animation: rgbSpin 1s linear infinite;
+    box-shadow: 0 0 20px rgba(0,255,200,0.3);
+  }
+
+  @keyframes rgbSpin{
+    0%{ transform:rotate(0deg); }
+    100%{ transform:rotate(360deg); }
+  }
+
+  .rgb-text{
+    margin-top:20px; font-size:1.1rem; font-weight:bold; letter-spacing:2px;
+    background: linear-gradient(90deg, #ff0055, #00ffaa, #00aaff, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgbShift 3s linear infinite;
+  }
+
+  @keyframes rgbShift{
+    0%{ filter: hue-rotate(0deg); }
+    100%{ filter: hue-rotate(360deg); }
+  }
+
+  .exit-btn{
+    position:absolute; top:14px; right:14px; z-index:100002;
+    padding:10px 20px; background:#ff3d3d; color:#fff;
+    border:2px solid #fff; font-weight:bold; font-family:var(--mono);
+    cursor:pointer; box-shadow:0 0 15px rgba(255,61,61,0.5);
+  }
+  .exit-btn:hover{ background:#ff0000; }
 </style>
 </head>
 <body>
@@ -355,79 +200,66 @@
   <header>
     <div class="headbar">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-mark"></div>
         <div class="brand-name">SCraft <span>Portal</span></div>
       </div>
-      <div class="status-pill" role="status">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span class="label">System Online</span>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>System Online</span>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-
     <section class="hero">
       <div class="hero-eyebrow">// web-based minecraft launcher</div>
       <h1>Pick a build. Drop into the world.</h1>
-      <p>No installs, no launchers to babysit — SCraft runs Eaglercraft and our own modded client straight in the browser. Choose a version below to boot up.</p>
+      <p>No installs required — launch Eaglercraft & custom SCraft builds directly inside your browser.</p>
     </section>
 
-    <section class="section" id="versions">
+    <section class="section">
       <div class="versions">
 
-        <article class="vcard" data-accent="purple">
-          <div>
-            <div class="vcard-tag">LEGACY · ALPHA</div>
-            <h3>Alpha</h3>
-            <p>The earliest playable build. Barebones survival, no polish — pure nostalgia.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launchGame('alpha.html')">Launch Alpha</button>
+        <article class="vcard">
+          <div class="vcard-tag">LEGACY · ALPHA</div>
+          <h3>Alpha</h3>
+          <p>Pure nostalgia. Early minecraft alpha build.</p>
+          <button class="vcard-launch" onclick="launchGame('alpha.html')">Launch Alpha</button>
         </article>
 
-        <article class="vcard" data-accent="purple">
-          <div>
-            <div class="vcard-tag">LEGACY · BETA</div>
-            <h3>Beta 1.3</h3>
-            <p>Mid-beta build, right before the Adventure Update work started landing.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launchGame('1.3.html')">Launch Beta 1.3</button>
+        <article class="vcard">
+          <div class="vcard-tag">LEGACY · BETA</div>
+          <h3>Beta 1.3</h3>
+          <p>Mid-beta build with classic generation.</p>
+          <button class="vcard-launch" onclick="launchGame('1.3.html')">Launch Beta 1.3</button>
         </article>
 
-        <article class="vcard" data-accent="purple">
-          <div>
-            <div class="vcard-tag">LEGACY · BETA</div>
-            <h3>Beta 1.7.3</h3>
-            <p>The classic beta era — the last build before the Adventure Update.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launchGame('1.7.3.html')">Launch Beta 1.7.3</button>
+        <article class="vcard">
+          <div class="vcard-tag">LEGACY · BETA</div>
+          <h3>Beta 1.7.3</h3>
+          <p>The legendary golden era of Minecraft Beta.</p>
+          <button class="vcard-launch" onclick="launchGame('1.7.3.html')">Launch Beta 1.7.3</button>
         </article>
 
-        <article class="vcard" data-accent="cyan">
-          <div>
-            <div class="vcard-tag">RELEASE · STABLE</div>
-            <h3>Eaglercraft 1.8</h3>
-            <p>Classic survival-era build. Fastest load, widest device support — the safe default.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launchGame('1.8.html')">Launch 1.8</button>
+        <article class="vcard">
+          <div class="vcard-tag">RELEASE · STABLE</div>
+          <h3>Eaglercraft 1.8</h3>
+          <p>Fast load, full PvP & multiplayer support.</p>
+          <button class="vcard-launch" onclick="launchGame('1.8.html')">Launch 1.8</button>
         </article>
 
-        <article class="vcard" data-accent="amber">
-          <div>
-            <div class="vcard-tag">PARTNER · REDIRECT</div>
-            <h3>Eaglercraft 1.12.2</h3>
-            <p>Not hosted on SCraft yet — this sends you to a partner site to play instead.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launch1122()">Launch 1.12.2</button>
+        <article class="vcard">
+          <div class="vcard-tag">PARTNER · REDIRECT</div>
+          <h3>Eaglercraft 1.12.2</h3>
+          <p>Redirects to partner external site.</p>
+          <button class="vcard-launch" onclick="launch1122()">Launch 1.12.2</button>
         </article>
 
-        <article class="vcard" data-accent="green">
-          <div>
-            <div class="vcard-tag">SCRAFT · CUSTOM</div>
-            <h3>Custom SCraft Client</h3>
-            <p>Our own build with SCraft-exclusive tweaks and QoL changes baked in.</p>
-          </div>
-          <button class="vcard-launch" type="button" onclick="launchScraftClient()">Launch SCraft</button>
+        <article class="vcard">
+          <div class="vcard-tag">SCRAFT · CUSTOM</div>
+          <h3>Custom SCraft</h3>
+          <p>Our custom client build under development.</p>
+          <button class="vcard-launch" onclick="launchScraftClient()">Launch SCraft</button>
         </article>
 
       </div>
@@ -435,109 +267,47 @@
 
     <!-- STORE SECTION -->
     <section class="section" id="store">
-      <div class="section-head">
-        <div>
-          <h2>Mod & Resource Repository</h2>
-          <p>Enhance your gameplay with community-driven modifications, texture packs, and custom add-ons.</p>
-        </div>
-        <div class="risk-badge">
-          ⚠️ Third-Party Content: Use at your own risk
-        </div>
-      </div>
-
       <div class="store-controls">
         <div class="search-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="store-search" placeholder="Search mods, clients, textures..." onkeyup="filterStore()">
+          <input type="text" id="store-search" placeholder="Search mods..." onkeyup="filterStore()">
         </div>
         <div class="chip-row">
           <button class="chip active" onclick="filterCategory('all', this)">All Items</button>
           <button class="chip" onclick="filterCategory('mod', this)">Mods</button>
           <button class="chip" onclick="filterCategory('texture', this)">Texture Packs</button>
-          <button class="chip" onclick="filterCategory('client', this)">Clients</button>
         </div>
       </div>
 
-      <div class="store-grid" id="store-grid">
-
-        <div class="item-card" data-category="mod" data-name="sodium performance boost">
-          <div class="item-top">
-            <div class="item-name">Sodium Optimization</div>
-            <div class="item-type">MOD</div>
-          </div>
-          <div class="item-desc">Next-generation rendering engine that drastically improves frame rates and reduces micro-stutter.</div>
-          <div class="item-meta">
-            <span>Ver: 1.8 / 1.12</span>
-            <span>Modrinth</span>
-          </div>
-          <div class="item-actions">
-            <a href="https://modrinth.com/mod/sodium" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
-          </div>
+      <div class="store-grid">
+        <div class="item-card" data-category="mod" data-name="sodium optimization">
+          <div class="item-name">Sodium FPS Boost</div>
+          <div class="item-desc">Dramatically increases FPS rendering engine.</div>
+          <a href="https://modrinth.com/mod/sodium" target="_blank" class="btn-sm primary">Get Mod ↗</a>
         </div>
-
-        <div class="item-card" data-category="texture" data-name="bare bones texture pack">
-          <div class="item-top">
-            <div class="item-name">Bare Bones 16x</div>
-            <div class="item-type">TEXTURE</div>
-          </div>
-          <div class="item-desc">A resource pack intended to bring the world of Minecraft to its bare roots and official trailer aesthetic.</div>
-          <div class="item-meta">
-            <span>Ver: All Builds</span>
-            <span>Modrinth</span>
-          </div>
-          <div class="item-actions">
-            <a href="https://modrinth.com/resourcepack/bare-bones" target="_blank" rel="noopener" class="btn-sm">Download ↗</a>
-          </div>
+        <div class="item-card" data-category="texture" data-name="bare bones">
+          <div class="item-name">Bare Bones 16x</div>
+          <div class="item-desc">Trailer style official clean textures.</div>
+          <a href="https://modrinth.com/resourcepack/bare-bones" target="_blank" class="btn-sm">Download ↗</a>
         </div>
-
-        <div class="item-card" data-category="client" data-name="eaglercraft custom client flex">
-          <div class="item-top">
-            <div class="item-name">Precision PvP Client</div>
-            <div class="item-type">CLIENT</div>
-          </div>
-          <div class="item-desc">Lightweight competitive client build with HUD customizations and integrated keystrokes indicator.</div>
-          <div class="item-meta">
-            <span>Ver: 1.8.8</span>
-            <span>CurseForge</span>
-          </div>
-          <div class="item-actions">
-            <a href="https://curseforge.com/" target="_blank" rel="noopener" class="btn-sm">Explore ↗</a>
-          </div>
-        </div>
-
-        <div class="item-card" data-category="mod" data-name="iris shaders enhancement">
-          <div class="item-top">
-            <div class="item-name">Iris Shaders</div>
-            <div class="item-type">MOD</div>
-          </div>
-          <div class="item-desc">Modern shader pack loader built to be compatible with existing shader packs and Optifine configurations.</div>
-          <div class="item-meta">
-            <span>Ver: 1.12.2</span>
-            <span>Modrinth</span>
-          </div>
-          <div class="item-actions">
-            <a href="https://modrinth.com/mod/iris" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
-          </div>
-        </div>
-
       </div>
     </section>
-
   </main>
 
   <footer>
-    <div class="wrap footer-row">
-      <div class="footer-copy">© <span id="year"></span> SCraft Portal — built by the SCraft dev team.</div>
-      <div class="footer-links">
-        <a href="https://github.com/sgdev-official/S-Craft" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-    </div>
+    <div class="wrap">© <span id="year"></span> SCraft Portal</div>
   </footer>
 </div>
 
-<!-- FULLSCREEN GAME OVERLAY -->
-<div id="game-overlay" style="display:none; position:fixed; inset:0; z-index:99999; background:#000;">
-  <button id="game-close-btn" onclick="exitGame()" style="position:absolute; top:12px; right:12px; z-index:100000; padding:10px 18px; background:#ff3d3d; color:#fff; border:none; font-weight:bold; font-family:monospace; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.5);">✕ Exit Game</button>
+<!-- GAME OVERLAY WITH RGB LOADER -->
+<div id="game-overlay">
+  <button class="exit-btn" onclick="exitGame()">✕ CLOSE GAME</button>
+  
+  <div id="rgb-loader-box" class="rgb-loader">
+    <div class="rgb-spinner"></div>
+    <div class="rgb-text">INITIALIZING GAME ENGINE & RGB MATRIX...</div>
+    <div style="font-size:0.8rem; color:#7c8ba0; margin-top:10px;">Please wait while base64 assets expand...</div>
+  </div>
+
   <iframe id="game-frame"
     style="width:100%; height:100%; border:0;"
     allow="fullscreen; pointer-lock; autoplay; gamepad"
@@ -545,53 +315,57 @@
 </div>
 
 <script>
-// ১. গেম লঞ্চার
+document.getElementById("year").textContent = new Date().getFullYear();
+
 function launchGame(file) {
   var overlay = document.getElementById('game-overlay');
   var frame = document.getElementById('game-frame');
   var dashboard = document.getElementById('launcher-dashboard');
+  var rgbLoader = document.getElementById('rgb-loader-box');
 
-  if(!overlay || !frame || !dashboard) return;
+  // ১. RGB রানিং লোডার অন
+  rgbLoader.style.display = 'flex';
+  rgbLoader.style.opacity = '1';
 
+  // ২. আইফ্রেম সোর্স লোড
   frame.src = file;
   overlay.style.display = 'block';
   dashboard.style.display = 'none';
-  
+
+  // ৩. গেম ফাইল সম্পূর্ণ আনপ্যাক হয়ে গেলে RGB লোডার স্মুথলি সরানোর টাইমার
+  frame.onload = function() {
+    setTimeout(function(){
+      rgbLoader.style.opacity = '0';
+      setTimeout(function(){
+        rgbLoader.style.display = 'none';
+      }, 500);
+    }, 1500); // 1.5s delay to let WebGL Canvas render completely
+  };
+
   setTimeout(function() {
     frame.focus();
-    if (frame.requestFullscreen) {
-      frame.requestFullscreen().catch(function(){});
-    }
-  }, 100);
-
-  history.pushState({ game: file }, '', '#' + file.replace('.html', ''));
+  }, 200);
 }
 
-// ২. গেম এক্সিট ও RAM/GPU ফ্রী করা
 function exitGame() {
   var overlay = document.getElementById('game-overlay');
   var frame = document.getElementById('game-frame');
   var dashboard = document.getElementById('launcher-dashboard');
 
-  if(!overlay || !frame || !dashboard) return;
-
   frame.src = 'about:blank';
   overlay.style.display = 'none';
   dashboard.style.display = 'block';
-  history.pushState({}, '', window.location.pathname);
 }
 
-// ৩. রিডাইরেক্ট ও অ্যালার্ট
 function launch1122(){
-  alert("Sorry! We don't have 1.12.2 version hosted locally right now, so we redirecting you to our partner site!");
+  alert("Redirecting to 1.12.2 partner site!");
   window.location.href = "https://eaglercraft.com/play?version=1.12.2&texture=music-sounds-1.8.8&userscript=flameddogo99-eaglermobile.js";
 }
 
 function launchScraftClient(){
-  alert("Coming soon! Our custom SCraft client is currently under development. For now, you can play any other available version!");
+  alert("SCraft Client coming soon!");
 }
 
-// ৪. ফিল্টার ফিল্টারিং Logic
 function filterCategory(category, btnElement){
   var chips = document.querySelectorAll('.chip');
   chips.forEach(function(c){ c.classList.remove('active'); });
@@ -619,16 +393,6 @@ function filterStore(){
     }
   });
 }
-
-// ৫. ব্যাক বাটন ট্র্যাকিং ও সাল আপডেট
-window.onload = function() {
-  var yr = document.getElementById("year");
-  if(yr) yr.textContent = new Date().getFullYear();
-
-  window.addEventListener('popstate', function(e) { 
-    if (!e.state || !e.state.game) exitGame(); 
-  });
-};
 </script>
 
 </body>
