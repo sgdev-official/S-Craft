@@ -351,187 +351,198 @@
 </head>
 <body>
 
-<header>
-  <div class="headbar">
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true"></div>
-      <div class="brand-name">SCraft <span>Portal</span></div>
+<div id="launcher-dashboard">
+  <header>
+    <div class="headbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-name">SCraft <span>Portal</span></div>
+      </div>
+      <div class="status-pill" role="status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="label">System Online</span>
+      </div>
     </div>
-    <div class="status-pill" role="status">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="label">System Online</span>
-    </div>
-  </div>
-</header>
+  </header>
 
-<main class="wrap">
+  <main class="wrap">
 
-  <section class="hero">
-    <div class="hero-eyebrow">// web-based minecraft launcher</div>
-    <h1>Pick a build. Drop into the world.</h1>
-    <p>No installs, no launchers to babysit — SCraft runs Eaglercraft and our own modded client straight in the browser. Choose a version below to boot up.</p>
-  </section>
+    <section class="hero">
+      <div class="hero-eyebrow">// web-based minecraft launcher</div>
+      <h1>Pick a build. Drop into the world.</h1>
+      <p>No installs, no launchers to babysit — SCraft runs Eaglercraft and our own modded client straight in the browser. Choose a version below to boot up.</p>
+    </section>
 
-  <section class="section" id="versions">
-    <div class="versions">
+    <section class="section" id="versions">
+      <div class="versions">
 
-      <article class="vcard" data-accent="purple">
+        <article class="vcard" data-accent="purple">
+          <div>
+            <div class="vcard-tag">LEGACY · ALPHA</div>
+            <h3>Alpha</h3>
+            <p>The earliest playable build. Barebones survival, no polish — pure nostalgia.</p>
+          </div>
+          <button class="vcard-launch" type="button" data-launch="alpha.html">Launch Alpha</button>
+        </article>
+
+        <article class="vcard" data-accent="purple">
+          <div>
+            <div class="vcard-tag">LEGACY · BETA</div>
+            <h3>Beta 1.3</h3>
+            <p>Mid-beta build, right before the Adventure Update work started landing.</p>
+          </div>
+          <button class="vcard-launch" type="button" data-launch="1.3.html">Launch Beta 1.3</button>
+        </article>
+
+        <article class="vcard" data-accent="purple">
+          <div>
+            <div class="vcard-tag">LEGACY · BETA</div>
+            <h3>Beta 1.7.3</h3>
+            <p>The classic beta era — the last build before the Adventure Update.</p>
+          </div>
+          <button class="vcard-launch" type="button" data-launch="1.7.3.html">Launch Beta 1.7.3</button>
+        </article>
+
+        <article class="vcard" data-accent="cyan">
+          <div>
+            <div class="vcard-tag">RELEASE · STABLE</div>
+            <h3>Eaglercraft 1.8</h3>
+            <p>Classic survival-era build. Fastest load, widest device support — the safe default.</p>
+          </div>
+          <button class="vcard-launch" type="button" data-launch="1.8.html">Launch 1.8</button>
+        </article>
+
+        <article class="vcard" data-accent="amber">
+          <div>
+            <div class="vcard-tag">PARTNER · REDIRECT</div>
+            <h3>Eaglercraft 1.12.2</h3>
+            <p>Not hosted on SCraft yet — this sends you to a partner site to play instead.</p>
+          </div>
+          <button class="vcard-launch" type="button" onclick="launch1122()">Launch 1.12.2</button>
+        </article>
+
+        <article class="vcard" data-accent="green">
+          <div>
+            <div class="vcard-tag">SCRAFT · CUSTOM</div>
+            <h3>Custom SCraft Client</h3>
+            <p>Our own build with SCraft-exclusive tweaks and QoL changes baked in.</p>
+          </div>
+          <button class="vcard-launch" type="button" onclick="launchScraftClient()">Launch SCraft</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- STORE SECTION -->
+    <section class="section" id="store">
+      <div class="section-head">
         <div>
-          <div class="vcard-tag">LEGACY · ALPHA</div>
-          <h3>Alpha</h3>
-          <p>The earliest playable build. Barebones survival, no polish — pure nostalgia.</p>
+          <h2>Mod & Resource Repository</h2>
+          <p>Enhance your gameplay with community-driven modifications, texture packs, and custom add-ons.</p>
         </div>
-        <button class="vcard-launch" type="button" onclick="launchGame('./alpha.html')">Launch Alpha</button>
-      </article>
-
-      <article class="vcard" data-accent="purple">
-        <div>
-          <div class="vcard-tag">LEGACY · BETA</div>
-          <h3>Beta 1.3</h3>
-          <p>Mid-beta build, right before the Adventure Update work started landing.</p>
+        <div class="risk-badge">
+          ⚠️ Third-Party Content: Use at your own risk
         </div>
-        <button class="vcard-launch" type="button" onclick="launchGame('./1.3.html')">Launch Beta 1.3</button>
-      </article>
+      </div>
 
-      <article class="vcard" data-accent="purple">
-        <div>
-          <div class="vcard-tag">LEGACY · BETA</div>
-          <h3>Beta 1.7.3</h3>
-          <p>The classic beta era — the last build before the Adventure Update.</p>
+      <div class="store-controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="store-search" placeholder="Search mods, clients, textures..." onkeyup="filterStore()">
         </div>
-        <button class="vcard-launch" type="button" onclick="launchGame('./1.7.3.html')">Launch Beta 1.7.3</button>
-      </article>
-
-      <article class="vcard" data-accent="cyan">
-        <div>
-          <div class="vcard-tag">RELEASE · STABLE</div>
-          <h3>Eaglercraft 1.8</h3>
-          <p>Classic survival-era build. Fastest load, widest device support — the safe default.</p>
+        <div class="chip-row">
+          <button class="chip active" onclick="filterCategory('all', this)">All Items</button>
+          <button class="chip" onclick="filterCategory('mod', this)">Mods</button>
+          <button class="chip" onclick="filterCategory('texture', this)">Texture Packs</button>
+          <button class="chip" onclick="filterCategory('client', this)">Clients</button>
         </div>
-        <button class="vcard-launch" type="button" onclick="launchGame('./1.8.html')">Launch 1.8</button>
-      </article>
+      </div>
 
-      <article class="vcard" data-accent="amber">
-        <div>
-          <div class="vcard-tag">PARTNER · REDIRECT</div>
-          <h3>Eaglercraft 1.12.2</h3>
-          <p>Not hosted on SCraft yet — this sends you to a partner site to play instead.</p>
+      <div class="store-grid" id="store-grid">
+
+        <div class="item-card" data-category="mod" data-name="sodium performance boost">
+          <div class="item-top">
+            <div class="item-name">Sodium Optimization</div>
+            <div class="item-type">MOD</div>
+          </div>
+          <div class="item-desc">Next-generation rendering engine that drastically improves frame rates and reduces micro-stutter.</div>
+          <div class="item-meta">
+            <span>Ver: 1.8 / 1.12</span>
+            <span>Modrinth</span>
+          </div>
+          <div class="item-actions">
+            <a href="https://modrinth.com/mod/sodium" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
+          </div>
         </div>
-        <button class="vcard-launch" type="button" onclick="launch1122()">Launch 1.12.2</button>
-      </article>
 
-      <article class="vcard" data-accent="green">
-        <div>
-          <div class="vcard-tag">SCRAFT · CUSTOM</div>
-          <h3>Custom SCraft Client</h3>
-          <p>Our own build with SCraft-exclusive tweaks and QoL changes baked in.</p>
+        <div class="item-card" data-category="texture" data-name="bare bones texture pack">
+          <div class="item-top">
+            <div class="item-name">Bare Bones 16x</div>
+            <div class="item-type">TEXTURE</div>
+          </div>
+          <div class="item-desc">A resource pack intended to bring the world of Minecraft to its bare roots and official trailer aesthetic.</div>
+          <div class="item-meta">
+            <span>Ver: All Builds</span>
+            <span>Modrinth</span>
+          </div>
+          <div class="item-actions">
+            <a href="https://modrinth.com/resourcepack/bare-bones" target="_blank" rel="noopener" class="btn-sm">Download ↗</a>
+          </div>
         </div>
-        <button class="vcard-launch" type="button" onclick="launchScraftClient()">Launch SCraft</button>
-      </article>
 
+        <div class="item-card" data-category="client" data-name="eaglercraft custom client flex">
+          <div class="item-top">
+            <div class="item-name">Precision PvP Client</div>
+            <div class="item-type">CLIENT</div>
+          </div>
+          <div class="item-desc">Lightweight competitive client build with HUD customizations and integrated keystrokes indicator.</div>
+          <div class="item-meta">
+            <span>Ver: 1.8.8</span>
+            <span>CurseForge</span>
+          </div>
+          <div class="item-actions">
+            <a href="https://curseforge.com/" target="_blank" rel="noopener" class="btn-sm">Explore ↗</a>
+          </div>
+        </div>
+
+        <div class="item-card" data-category="mod" data-name="iris shaders enhancement">
+          <div class="item-top">
+            <div class="item-name">Iris Shaders</div>
+            <div class="item-type">MOD</div>
+          </div>
+          <div class="item-desc">Modern shader pack loader built to be compatible with existing shader packs and Optifine configurations.</div>
+          <div class="item-meta">
+            <span>Ver: 1.12.2</span>
+            <span>Modrinth</span>
+          </div>
+          <div class="item-actions">
+            <a href="https://modrinth.com/mod/iris" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-copy">© <span id="year"></span> SCraft Portal — built by the SCraft dev team.</div>
+      <div class="footer-links">
+        <a href="https://github.com/sgdev-official/S-Craft" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
     </div>
-  </section>
+  </footer>
+</div>
 
-  <!-- STORE SECTION -->
-  <section class="section" id="store">
-    <div class="section-head">
-      <div>
-        <h2>Mod & Resource Repository</h2>
-        <p>Enhance your gameplay with community-driven modifications, texture packs, and custom add-ons.</p>
-      </div>
-      <div class="risk-badge">
-        ⚠️ Third-Party Content: Use at your own risk
-      </div>
-    </div>
-
-    <div class="store-controls">
-      <div class="search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="store-search" placeholder="Search mods, clients, textures..." onkeyup="filterStore()">
-      </div>
-      <div class="chip-row">
-        <button class="chip active" onclick="filterCategory('all', this)">All Items</button>
-        <button class="chip" onclick="filterCategory('mod', this)">Mods</button>
-        <button class="chip" onclick="filterCategory('texture', this)">Texture Packs</button>
-        <button class="chip" onclick="filterCategory('client', this)">Clients</button>
-      </div>
-    </div>
-
-    <div class="store-grid" id="store-grid">
-
-      <div class="item-card" data-category="mod" data-name="sodium performance boost">
-        <div class="item-top">
-          <div class="item-name">Sodium Optimization</div>
-          <div class="item-type">MOD</div>
-        </div>
-        <div class="item-desc">Next-generation rendering engine that drastically improves frame rates and reduces micro-stutter.</div>
-        <div class="item-meta">
-          <span>Ver: 1.8 / 1.12</span>
-          <span>Modrinth</span>
-        </div>
-        <div class="item-actions">
-          <a href="https://modrinth.com/mod/sodium" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
-        </div>
-      </div>
-
-      <div class="item-card" data-category="texture" data-name="bare bones texture pack">
-        <div class="item-top">
-          <div class="item-name">Bare Bones 16x</div>
-          <div class="item-type">TEXTURE</div>
-        </div>
-        <div class="item-desc">A resource pack intended to bring the world of Minecraft to its bare roots and official trailer aesthetic.</div>
-        <div class="item-meta">
-          <span>Ver: All Builds</span>
-          <span>Modrinth</span>
-        </div>
-        <div class="item-actions">
-          <a href="https://modrinth.com/resourcepack/bare-bones" target="_blank" rel="noopener" class="btn-sm">Download ↗</a>
-        </div>
-      </div>
-
-      <div class="item-card" data-category="client" data-name="eaglercraft custom client flex">
-        <div class="item-top">
-          <div class="item-name">Precision PvP Client</div>
-          <div class="item-type">CLIENT</div>
-        </div>
-        <div class="item-desc">Lightweight competitive client build with HUD customizations and integrated keystrokes indicator.</div>
-        <div class="item-meta">
-          <span>Ver: 1.8.8</span>
-          <span>CurseForge</span>
-        </div>
-        <div class="item-actions">
-          <a href="https://curseforge.com/" target="_blank" rel="noopener" class="btn-sm">Explore ↗</a>
-        </div>
-      </div>
-
-      <div class="item-card" data-category="mod" data-name="iris shaders enhancement">
-        <div class="item-top">
-          <div class="item-name">Iris Shaders</div>
-          <div class="item-type">MOD</div>
-        </div>
-        <div class="item-desc">Modern shader pack loader built to be compatible with existing shader packs and Optifine configurations.</div>
-        <div class="item-meta">
-          <span>Ver: 1.12.2</span>
-          <span>Modrinth</span>
-        </div>
-        <div class="item-actions">
-          <a href="https://modrinth.com/mod/iris" target="_blank" rel="noopener" class="btn-sm primary">Get Mod ↗</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap footer-row">
-    <div class="footer-copy">© <span id="year"></span> SCraft Portal — built by the SCraft dev team.</div>
-    <div class="footer-links">
-      <a href="https://github.com/sgdev-official/S-Craft" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
-  </div>
-</footer>
+<!-- FULLSCREEN GAME OVERLAY -->
+<div id="game-overlay" style="display:none; position:fixed; inset:0; z-index:99999; background:#000;">
+  <button id="game-close-btn" style="position:absolute; top:12px; right:12px; z-index:100000; padding:10px 18px; background:#ff3d3d; color:#fff; border:none; font-weight:bold; font-family:monospace; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.5);">✕ Exit Game</button>
+  <iframe id="game-frame"
+    style="width:100%; height:100%; border:0;"
+    allow="fullscreen; pointer-lock; autoplay; gamepad"
+    allowfullscreen></iframe>
+</div>
 
 <script>
 (function(){
@@ -539,27 +550,4 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Dynamic Inline Loader (CORS/Origin Safe)
-  window.launchGame = function(filePath){
-    fetch(filePath)
-      .then(response => {
-        if (!response.ok) throw new Error("File not found");
-        return response.text();
-      })
-      .then(htmlContent => {
-        document.open();
-        document.write(htmlContent);
-        document.close();
-      })
-      .catch(err => {
-        alert("Game launch failed! File check কর ভাই: " + filePath);
-      });
-  };
-
-  window.launch1122 = function(){
-    alert("Sorry! We don't have 1.12.2 version hosted locally right now, so we redirecting you to our partner site!");
-    window.location.href = "https://eaglercraft.com/play?version=1.12.2&texture=music-sounds-1.8.8&userscript=flameddogo99-eaglermobile.js";
-  };
-
-  window.launchScraftClient = function(){
-    alert("Coming soon! Our custom SCraft client is currently under development. For now, yo
+  const overl
