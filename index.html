@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCraft Portal — Play Eaglercraft & SCraft in Your Browser</title>
+<meta name="description" content="SCraft Portal is a free browser-based Minecraft launcher. Play Eaglercraft Alpha, Beta 1.3, Beta 1.7.3, 1.8, 1.12, 1.12.2, and the custom SCraft client instantly, no downloads required.">
+<meta name="keywords" content="scraft, eaglercraft, minecraft in browser, eaglercraft 1.8, eaglercraft 1.12, minecraft web client, play minecraft online, browser minecraft launcher">
+<meta name="robots" content="index, follow">
+<meta name="author" content="SCraft Dev Team">
+<link rel="canonical" href="https://scraft-portal.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SCraft Portal — Play Eaglercraft & SCraft in Your Browser">
+<meta property="og:description" content="Launch Eaglercraft Alpha through 1.12.2, or our custom SCraft client, right in your browser. No installs, no launchers.">
+<meta property="og:url" content="https://scraft-portal.example/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SCraft Portal — Play Eaglercraft & SCraft in Your Browser">
+<meta name="twitter:description" content="Launch Eaglercraft Alpha through 1.12.2, or our custom SCraft client, right in your browser.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+  :root{
+    --void:#080b10;
+    --panel:#0f1621;
+    --panel-2:#131c29;
+    --border:rgba(120,150,190,0.14);
+    --cyan:#3fe3d8;
+    --purple:#a06bff;
+    --green:#3dffa0;
+    --amber:#ffb648;
+    --text:#dfe9f2;
+    --muted:#7c8ba0;
+    --mono: ui-monospace, "SFMono-Regular", "Consolas", "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 15% -10%, rgba(160,107,255,0.10), transparent 60%),
+      radial-gradient(1000px 600px at 90% 10%, rgba(63,227,216,0.08), transparent 55%),
+      var(--void);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    min-height:100vh;
+  }
+
+  ::selection{ background: rgba(63,227,216,0.3); }
+
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:2px;
+    border-radius:0;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(10px);
+    background:rgba(8,11,16,0.72);
+    border-bottom:1px solid var(--border);
+  }
+  .headbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:30px; height:30px; position:relative; flex:none;
+    background:var(--cyan);
+    box-shadow:
+      inset 6px 6px 0 0 var(--purple),
+      inset -6px -6px 0 0 rgba(0,0,0,0.55);
+    border:2px solid #04110d;
+  }
+  .brand-name{
+    font-weight:700; font-size:1.15rem; letter-spacing:0.01em; color:#fff;
+    font-family:var(--mono);
+  }
+  .brand-name span{ color:var(--cyan); }
+
+  .status-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:7px 14px;
+    border:2px solid rgba(61,255,160,0.35);
+    border-radius:0;
+    background:rgba(61,255,160,0.06);
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--green);
+  }
+  .status-dot{
+    width:8px; height:8px; border-radius:0; background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.55; transform:scale(0.8); }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:64px 0 20px; }
+  .hero-eyebrow{
+    font-family:var(--mono); font-size:0.82rem; color:var(--purple);
+    margin-bottom:10px;
+  }
+  .hero h1{
+    font-size:clamp(2rem, 4.4vw, 3.1rem);
+    line-height:1.08;
+    margin:0 0 14px;
+    color:#fff;
+    max-width:16ch;
+  }
+  .hero p{
+    color:var(--muted); max-width:56ch; font-size:1.02rem; margin:0 0 8px;
+  }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .section{ padding:56px 0; }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
+  .section-head h2{ font-size:1.5rem; margin:0 0 6px; color:#fff; }
+  .section-head p{ margin:0; color:var(--muted); font-size:0.95rem; max-width:52ch; }
+
+  /* ---------- VERSION CARDS ---------- */
+  .versions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:18px;
+    margin-top:36px;
+  }
+  .vcard{
+    position:relative;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:22px;
+    min-height:200px;
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:2px solid var(--border);
+    border-radius:0;
+    box-shadow:
+      inset 3px 3px 0 0 rgba(255,255,255,0.04),
+      inset -3px -3px 0 0 rgba(0,0,0,0.35);
+    overflow:hidden;
+    transition:transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .vcard::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(120deg, var(--accent, var(--cyan)), transparent 55%);
+    opacity:0.06;
+    pointer-events:none;
+  }
+  .vcard:hover{
+    transform:translateY(-4px);
+    border-color:var(--accent, var(--cyan));
+    box-shadow:
+      inset 3px 3px 0 0 rgba(255,255,255,0.06),
+      inset -3px -3px 0 0 rgba(0,0,0,0.4),
+      0 8px 0 0 rgba(0,0,0,0.35);
+  }
+  .vcard[data-accent="cyan"]{ --accent:var(--cyan); }
+  .vcard[data-accent="purple"]{ --accent:var(--purple); }
+  .vcard[data-accent="green"]{ --accent:var(--green); }
+  .vcard[data-accent="amber"]{ --accent:var(--amber); }
+
+  .vcard-tag{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.02em;
+    color:var(--accent, var(--cyan)); margin-bottom:12px;
+  }
+  .vcard h3{ margin:0 0 8px; font-size:1.3rem; color:#fff; font-family:var(--mono); }
+  .vcard p{ margin:0; color:var(--muted); font-size:0.9rem; }
+  .vcard-launch{
+    margin-top:18px;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:11px 16px;
+    border-radius:0;
+    border:2px solid var(--accent, var(--cyan));
+    box-shadow:
+      inset 2px 2px 0 0 rgba(255,255,255,0.12),
+      inset -2px -2px 0 0 rgba(0,0,0,0.4);
+    color:var(--accent, var(--cyan));
+    font-weight:700; font-size:0.9rem; font-family:var(--mono);
+    background:rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:background 0.1s ease, color 0.1s ease, transform 0.1s ease;
+  }
+  .vcard-launch:hover{
+    background:var(--accent, var(--cyan));
+    color:#04110d;
+  }
+  .vcard-launch:active{
+    transform:translateY(2px);
+    box-shadow:none;
+  }
+
+  /* ---------- STORE ---------- */
+  #store{ display:flex; justify-content:center; }
+  .store-btn{ font-size:1rem; padding:16px 32px; }
+  .risk-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    border:2px solid rgba(255,182,72,0.4);
+    background:rgba(255,182,72,0.08);
+    color:var(--amber);
+    border-radius:0;
+    font-size:0.84rem;
+    font-weight:600;
+    margin-bottom:22px;
+  }
+
+  .store-controls{
+    display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px;
+  }
+  .search-box{
+    flex:1 1 260px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:12px 14px 12px 40px;
+    background:var(--panel);
+    border:2px solid var(--border);
+    border-radius:0;
+    color:var(--text);
+    font-size:0.95rem;
+    font-family:var(--mono);
+  }
+  .search-box input::placeholder{ color:var(--muted); }
+  .search-box input:focus{ border-color:var(--cyan); }
+  .search-box svg{
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; stroke:var(--muted);
+  }
+
+  .chip-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{
+    padding:10px 15px;
+    border-radius:0;
+    border:2px solid var(--border);
+    background:var(--panel);
+    color:var(--muted);
+    font-size:0.86rem;
+    font-family:var(--mono);
+    cursor:pointer;
+    transition:border-color 0.15s ease, color 0.15s ease;
+    white-space:nowrap;
+  }
+  .chip:hover{ color:var(--text); }
+  .chip.active{
+    color:var(--cyan); border-color:var(--cyan); background:rgba(63,227,216,0.08);
+  }
+
+  .store-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:16px;
+  }
+  .item-card{
+    background:var(--panel);
+    border:2px solid var(--border);
+    border-radius:0;
+    box-shadow:
+      inset 2px 2px 0 0 rgba(255,255,255,0.03),
+      inset -2px -2px 0 0 rgba(0,0,0,0.3);
+    padding:18px;
+    display:flex; flex-direction:column; gap:10px;
+    transition:transform 0.15s ease, border-color 0.15s ease;
+  }
+  .item-card:hover{ transform:translateY(-3px); border-color:rgba(160,107,255,0.4); }
+  .item-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+  .item-name{ font-weight:600; color:#fff; font-size:1rem; }
+  .item-type{
+    font-family:var(--mono); font-size:0.68rem;
+    padding:3px 8px; border-radius:0;
+    color:var(--purple); border:1px solid rgba(160,107,255,0.35);
+    background:rgba(160,107,255,0.08);
+    white-space:nowrap;
+  }
+  .item-desc{ color:var(--muted); font-size:0.85rem; flex:1; }
+  .item-meta{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:0.75rem; color:var(--muted);
+  }
+  .item-actions{ display:flex; gap:8px; margin-top:4px; }
+  .btn-sm{
+    flex:1;
+    padding:9px 10px;
+    border-radius:0;
+    border:2px solid var(--border);
+    background:rgba(0,0,0,0.2);
+    color:var(--text);
+    font-size:0.82rem;
+    font-weight:700;
+    font-family:var(--mono);
+    cursor:pointer;
+    text-align:center;
+    transition:border-color 0.1s ease, color 0.1s ease, transform 0.1s ease;
+  }
+  .btn-sm.primary{
+    border-color:var(--green); color:var(--green);
+    box-shadow:
+      inset 2px 2px 0 0 rgba(255,255,255,0.1),
+      inset -2px -2px 0 0 rgba(0,0,0,0.4);
+  }
+  .btn-sm.primary:hover{ background:var(--green); color:#04110d; }
+  .btn-sm:hover{ border-color:var(--cyan); color:var(--cyan); }
+  .btn-sm:active{ transform:translateY(2px); }
+
+  .empty-state{
+    grid-column:1/-1;
+    text-align:center;
+    padding:48px 20px;
+    color:var(--muted);
+    font-family:var(--mono);
+    font-size:0.9rem;
+    border:1px dashed var(--border);
+    border-radius:0;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--border);
+    padding:32px 0 40px;
+    margin-top:40px;
+  }
+  .footer-row{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:16px;
+  }
+  .footer-links{ display:flex; gap:20px; }
+  .footer-links a{
+    color:var(--muted); font-size:0.88rem;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:color 0.15s ease;
+  }
+  .footer-links a:hover{ color:var(--cyan); }
+  .footer-copy{ color:var(--muted); font-size:0.82rem; font-family:var(--mono); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .versions{ grid-template-columns:1fr; }
+    .hero{ padding:44px 0 10px; }
+  }
+  @media (max-width:600px){
+    .headbar{ padding:14px 18px; }
+    .brand-name{ font-size:1rem; }
+    .status-pill span.label{ display:none; }
+    .hero h1{ max-width:none; }
+    .footer-row{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="headbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-name">SCraft <span>Portal</span></div>
+    </div>
+    <div class="status-pill" role="status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="label">System Online</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-eyebrow">// web-based minecraft launcher</div>
+    <h1>Pick a build. Drop into the world.</h1>
+    <p>No installs, no launchers to babysit — SCraft runs Eaglercraft and our own modded client straight in the browser. Choose a version below to boot up.</p>
+  </section>
+
+  <section class="section" id="versions">
+    <div class="versions">
+
+      <article class="vcard" data-accent="purple">
+        <div>
+          <div class="vcard-tag">LEGACY · ALPHA</div>
+          <h3>Alpha</h3>
+          <p>The earliest playable build. Barebones survival, no polish — pure nostalgia.</p>
+        </div>
+        <a class="vcard-launch" href="/alpha.html">Launch Alpha</a>
+      </article>
+
+      <article class="vcard" data-accent="purple">
+        <div>
+          <div class="vcard-tag">LEGACY · BETA</div>
+          <h3>Beta 1.3</h3>
+          <p>Mid-beta build, right before the Adventure Update work started landing.</p>
+        </div>
+        <a class="vcard-launch" href="/1.3.html">Launch Beta 1.3</a>
+      </article>
+
+      <article class="vcard" data-accent="purple">
+        <div>
+          <div class="vcard-tag">LEGACY · BETA</div>
+          <h3>Beta 1.7.3</h3>
+          <p>The classic beta era — the last build before the Adventure Update.</p>
+        </div>
+        <a class="vcard-launch" href="/1.7.3.html">Launch Beta 1.7.3</a>
+      </article>
+
+      <article class="vcard" data-accent="cyan">
+        <div>
+          <div class="vcard-tag">RELEASE · STABLE</div>
+          <h3>Eaglercraft 1.8</h3>
+          <p>Classic survival-era build. Fastest load, widest device support — the safe default.</p>
+        </div>
+        <a class="vcard-launch" href="/1.8.html">Launch 1.8</a>
+      </article>
+
+      <article class="vcard" data-accent="cyan">
+        <div>
+          <div class="vcard-tag">RELEASE · UPDATED</div>
+          <h3>Eaglercraft 1.12</h3>
+          <p>Later combat and world updates, still browser-native. A heavier load for a bigger feature set.</p>
+        </div>
+        <a class="vcard-launch" href="/1.12.html">Launch 1.12</a>
+      </article>
+
+      <article class="vcard" data-accent="amber">
+        <div>
+          <div class="vcard-tag">PARTNER · REDIRECT</div>
+          <h3>Eaglercraft 1.12.2</h3>
+          <p>Not hosted on SCraft yet — this sends you to a partner site to play instead.</p>
+        </div>
+        <button class="vcard-launch" type="button" onclick="launch1122()">Launch 1.12.2</button>
+      </article>
+
+      <article class="vcard" data-accent="green">
+        <div>
+          <div class="vcard-tag">SCRAFT · CUSTOM</div>
+          <h3>Custom SCraft Client</h3>
+          <p>Our own build with SCraft-exclusive tweaks and QoL changes baked in.</p>
+        </div>
+        <a class="vcard-launch" href="/scraft.html">Launch SCraft</a>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section" id="store">
+    <a class="vcard-launch store-btn" href="#">Open Store</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="footer-copy">© <span id="year"></span> SCraft Portal — built by the SCraft dev team.</div>
+    <div class="footer-links">
+      <a href="https://github.com/sgdev-official/S-Craft" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  window.launch1122 = function(){
+    alert("Sorry but We dosent hav 1.12.2 verson so we redirect to another partner sit");
+    window.location.href = "https://eaglercraft.com/play?version=1.12.2&texture=music-sounds-1.8.8&userscript=flameddogo99-eaglermobile.js";
+  };
+})();
+</script>
+
+</body>
+</html>
