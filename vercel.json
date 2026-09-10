@@ -19,6 +19,22 @@
     {
       "source": "/favicon.ico",
       "destination": "/favicon.png"
+    },
+    {
+      "source": "/1.3",
+      "destination": "/1.3.html"
+    },
+    {
+      "source": "/1.7.3",
+      "destination": "/1.7.3.html"
+    },
+    {
+      "source": "/1.8",
+      "destination": "/1.8.html"
+    },
+    {
+      "source": "/alpha",
+      "destination": "/alpha.html"
     }
   ]
 }
