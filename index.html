@@ -222,28 +222,28 @@
           <div class="vcard-tag">LEGACY · ALPHA</div>
           <h3>Alpha</h3>
           <p>Pure nostalgia. Early minecraft alpha build.</p>
-          <button class="vcard-launch" onclick="launchGame('alpha.html')">Launch Alpha</button>
+          <button class="vcard-launch" onclick="launchGame('/alpha')">Launch Alpha</button>
         </article>
 
         <article class="vcard">
           <div class="vcard-tag">LEGACY · BETA</div>
           <h3>Beta 1.3</h3>
           <p>Mid-beta build with classic generation.</p>
-          <button class="vcard-launch" onclick="launchGame('1.3.html')">Launch Beta 1.3</button>
+          <button class="vcard-launch" onclick="launchGame('/1.3')">Launch Beta 1.3</button>
         </article>
 
         <article class="vcard">
           <div class="vcard-tag">LEGACY · BETA</div>
           <h3>Beta 1.7.3</h3>
           <p>The legendary golden era of Minecraft Beta.</p>
-          <button class="vcard-launch" onclick="launchGame('1.7.3.html')">Launch Beta 1.7.3</button>
+          <button class="vcard-launch" onclick="launchGame('/1.7.3')">Launch Beta 1.7.3</button>
         </article>
 
         <article class="vcard">
           <div class="vcard-tag">RELEASE · STABLE</div>
           <h3>Eaglercraft 1.8</h3>
           <p>Fast load, full PvP & multiplayer support.</p>
-          <button class="vcard-launch" onclick="launchGame('1.8.html')">Launch 1.8</button>
+          <button class="vcard-launch" onclick="launchGame('/1.8')">Launch 1.8</button>
         </article>
 
         <article class="vcard">
@@ -312,7 +312,7 @@
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
-function launchGame(file) {
+function launchGame(path) {
   var overlay = document.getElementById('game-overlay');
   var dashboard = document.getElementById('launcher-dashboard');
   var rgbLoader = document.getElementById('rgb-loader-box');
@@ -322,25 +322,24 @@ function launchGame(file) {
   overlay.style.display = 'block';
   dashboard.style.display = 'none';
 
-  // Clear previous frame
   container.innerHTML = '';
 
-  // Direct dynamic iframe injection with full permissions
   var iframe = document.createElement('iframe');
   iframe.style.width = '100%';
   iframe.style.height = '100%';
   iframe.style.border = '0';
   iframe.setAttribute('allow', 'fullscreen; pointer-lock; autoplay; gamepad; microphone; camera');
   iframe.setAttribute('allowfullscreen', 'true');
-  iframe.src = file;
+  
+  // Clean URL Path without .html extension
+  iframe.src = path;
 
   container.appendChild(iframe);
 
-  // Smooth hide loader after engine initializes
   setTimeout(function() {
     rgbLoader.style.display = 'none';
     iframe.focus();
-  }, 3500);
+  }, 2500);
 }
 
 function exitGame() {
