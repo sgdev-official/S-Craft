@@ -188,8 +188,18 @@
     padding:10px 20px; background:#ff3d3d; color:#fff;
     border:2px solid #fff; font-weight:bold; font-family:var(--mono);
     cursor:pointer; box-shadow:0 0 15px rgba(255,61,61,0.5);
+    transition: opacity 0.4s ease;
   }
   .exit-btn:hover{ background:#ff0000; }
+
+  /* Small on-screen hint shown once the button fades out */
+  .exit-hint{
+    position:absolute; top:14px; right:14px; z-index:100002;
+    padding:8px 14px; background:rgba(8,11,16,0.72);
+    border:2px solid var(--border); color:var(--muted);
+    font-family:var(--mono); font-size:0.78rem;
+    display:none; pointer-events:none;
+  }
 </style>
 </head>
 <body>
@@ -298,8 +308,9 @@
 
 <!-- GAME OVERLAY WITH RGB LOADER -->
 <div id="game-overlay">
-  <button class="exit-btn" onclick="exitGame()">✕ CLOSE GAME</button>
-  
+  <button id="exitBtn" class="exit-btn" onclick="exitGame()">✕ CLOSE GAME</button>
+  <div id="exitHint" class="exit-hint">Ctrl+Esc to quit</div>
+
   <div id="rgb-loader-box" class="rgb-loader">
     <div class="rgb-spinner"></div>
     <div class="rgb-text">INITIALIZING GAME ENGINE & RGB MATRIX...</div>
@@ -312,11 +323,15 @@
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
+var exitBtnTimer = null;
+
 function launchGame(path) {
   var overlay = document.getElementById('game-overlay');
   var dashboard = document.getElementById('launcher-dashboard');
   var rgbLoader = document.getElementById('rgb-loader-box');
   var container = document.getElementById('game-container');
+  var exitBtn = document.getElementById('exitBtn');
+  var exitHint = document.getElementById('exitHint');
 
   rgbLoader.style.display = 'flex';
   overlay.style.display = 'block';
@@ -330,11 +345,24 @@ function launchGame(path) {
   iframe.style.border = '0';
   iframe.setAttribute('allow', 'fullscreen; pointer-lock; autoplay; gamepad; microphone; camera');
   iframe.setAttribute('allowfullscreen', 'true');
-  
+
   // Clean URL Path without .html extension
   iframe.src = path;
 
   container.appendChild(iframe);
+
+  // Reset & show the close button, then auto-hide it after 5 seconds
+  exitBtn.style.display = 'inline-flex';
+  exitBtn.style.opacity = '1';
+  exitHint.style.display = 'none';
+  if (exitBtnTimer) clearTimeout(exitBtnTimer);
+  exitBtnTimer = setTimeout(function(){
+    exitBtn.style.opacity = '0';
+    setTimeout(function(){
+      exitBtn.style.display = 'none';
+      exitHint.style.display = 'block';
+    }, 400); // wait for fade transition to finish
+  }, 5000);
 
   setTimeout(function() {
     rgbLoader.style.display = 'none';
@@ -346,11 +374,32 @@ function exitGame() {
   var overlay = document.getElementById('game-overlay');
   var dashboard = document.getElementById('launcher-dashboard');
   var container = document.getElementById('game-container');
+  var exitBtn = document.getElementById('exitBtn');
+  var exitHint = document.getElementById('exitHint');
+
+  if (exitBtnTimer) {
+    clearTimeout(exitBtnTimer);
+    exitBtnTimer = null;
+  }
 
   container.innerHTML = '';
   overlay.style.display = 'none';
   dashboard.style.display = 'block';
+
+  // reset button state for next launch
+  exitBtn.style.display = 'inline-flex';
+  exitBtn.style.opacity = '1';
+  exitHint.style.display = 'none';
 }
+
+// Ctrl+Esc quits the game and returns to the main menu
+document.addEventListener('keydown', function(e){
+  var overlay = document.getElementById('game-overlay');
+  if (overlay.style.display === 'block' && e.ctrlKey && e.key === 'Escape') {
+    e.preventDefault();
+    exitGame();
+  }
+});
 
 function launch1122(){
   alert("Redirecting to 1.12.2 partner site!");
